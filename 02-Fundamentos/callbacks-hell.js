@@ -17,7 +17,7 @@ const empleados = [
 	},
 ];
 
-const salario = [
+const salarios = [
 	{
 		id: 1,
 		salario: 500,
@@ -43,9 +43,23 @@ const getEmpleado = (id, callback) => {
 	}
 };
 
-getEmpleado(10, (err, empleado) => {
+const getSalario = (id, callback) => {
+	const salario = salarios.find((s) => {
+		return s.id === id; // revisando si el salario.id es igual al id del argumento
+	});
+
+	if (salario) {
+		callback(null, salario);
+	} else {
+		callback(`El salario con el id ${id} no existe`);
+	}
+};
+
+const id = 3;
+
+getEmpleado(id, (err, empleado) => {
 	if (err) {
-		console.log('ERROR!');
+		console.log('ERROR en EMPLEADO!');
 		return console.log(err);
 	} else {
 		console.log('Empleado si existe');
@@ -54,3 +68,13 @@ getEmpleado(10, (err, empleado) => {
 });
 
 // console.log(getEmpleado(5));
+
+getSalario(id, (err, salario) => {
+	if (err) {
+		console.log('ERROR en SALARIO!');
+		return console.log(err);
+	} else {
+		console.log('El salario si existe');
+		console.log(salario);
+	}
+});
