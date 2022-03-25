@@ -36,7 +36,7 @@ const getEmpleado = (id) => {
 		})?.nombre;
 
 		if (empleado) {
-			resolve(`Id ${id} pertenece al empleado: ${empleado}`);
+			resolve(empleado);
 		} else {
 			reject(`No existe empleado con el id ${id}`);
 		}
@@ -51,18 +51,36 @@ const getSalario = (id) => {
 			return e.id === id;
 		})?.salario;
 
-		salario
-			? resolve(`Id ${id} con salario de: ${salario}`)
-			: reject(`No existe un salario con el id ${id}`);
+		salario ? resolve(salario) : reject(`No existe un salario con el id ${id}`);
 	});
 };
 
-const id = 2;
+const id = 3;
+
+// getEmpleado(id)
+// 	.then((empleado) => console.log(empleado))
+// 	.catch((err) => console.log(err));
+
+// getSalario(id)
+// 	.then((salario) => console.log(salario))
+// 	.catch((err) => console.log(err));
+
+/***********************
+ * Promesas en Cadena
+ **********************/
+
+let nombre;
 
 getEmpleado(id)
-	.then((empleado) => console.log(empleado))
-	.catch((err) => console.log(err));
+	.then((empleado) => {
+		nombre = empleado;
+		return getSalario(id);
+	})
+	.then((salario) =>
+		console.log(`El empleado: ${nombre} tiene un salario de : ${salario}`)
+	)
+	.catch((err) => {
+		console.log(err);
+	});
 
-getSalario(id)
-	.then((salario) => console.log(salario))
-	.catch((err) => console.log(err));
+// Verificar después cómo solucionar que muestre el empleado aunque no posea salario
