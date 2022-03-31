@@ -5,7 +5,10 @@
 //Importando la función del archivo multiplicar
 const { crearArchivo } = require('./helpers/multiplicar');
 
-const base = 2;
+const [, , arg3 = 'base=5'] = process.argv;
+const [, base = 5] = arg3.split('=');
+
+//
 
 crearArchivo(base)
 	.then((nombreArchivo) => console.log(nombreArchivo))
