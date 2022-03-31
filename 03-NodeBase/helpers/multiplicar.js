@@ -6,11 +6,8 @@
 
 const fs = require('fs');
 
-const crearArchivo = async (base = 5) => {
+const crearArchivo = async (base = 5, listar = false) => {
 	try {
-		console.log('=======================');
-		console.log('      Tabla del:', base);
-		console.log('=======================');
 		let salida = '';
 		/**********************************
 				* Mi código para la tarea
@@ -23,8 +20,13 @@ const crearArchivo = async (base = 5) => {
 		for (let i = 1; i <= 10; i++) {
 			salida += `${base} x ${i} = ${base * i}\n`;
 		}
+		if (listar) {
+			console.log('=======================');
+			console.log('      Tabla del:', base);
+			console.log('=======================');
+			console.log(salida);
+		}
 
-		console.log(salida);
 		/**********************
 		 * Con el writeFileSync
 		 ***********************/
