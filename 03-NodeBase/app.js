@@ -18,6 +18,6 @@ console.log('base: yargs'.red, colors.blue(argv.b));
 
 //
 
-crearArchivo(argv.b, argv.l)
+crearArchivo(argv.b, argv.l, argv.h)
 	.then((nombreArchivo) => console.log(nombreArchivo.rainbow, 'creada'))
 	.catch((err) => console.log(err));

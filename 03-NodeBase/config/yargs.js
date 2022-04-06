@@ -9,6 +9,13 @@ const argv = require('yargs')
 		// demandOption: true,
 		describe: 'Es la base de la tabla de multiplicar',
 	})
+	.option('h', {
+		alias: 'hasta',
+		type: 'number',
+		default: 10,
+		// demandOption: true,
+		describe: 'Valor hasta donde se quiere la tabla',
+	})
 	.option('l', {
 		alias: 'listar',
 		type: 'boolean',
