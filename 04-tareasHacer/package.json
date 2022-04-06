@@ -1,0 +1,14 @@
+{
+  "name": "04-tareashacer",
+  "version": "1.0.0",
+  "description": "Software de Tareas por Hacer ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cristian Carrillo",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
