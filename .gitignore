@@ -1,2 +1,4 @@
 # Ignorando los módulos de node
-node_modules
+node_modules/
+
+/salida/*.txt
