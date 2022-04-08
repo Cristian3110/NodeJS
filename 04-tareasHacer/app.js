@@ -1,8 +1,10 @@
 /****************************
  * Aplicación de consola interactiva
  ***********************/
-require('colors');
 
+// importando paque instalado
+require('colors');
+// importando las funciones desde sus origenes u otros archivos
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
@@ -11,12 +13,11 @@ const Tareas = require('./models/tareas');
 
 // console.clear();
 const main = async () => {
-	console.log('Hola Mundo');
-
 	let opt = '';
 	const tareas = new Tareas();
 
 	do {
+		// imprime el menú retornando una opción
 		opt = await inquirerMenu();
 		// console.log({ opt });
 
@@ -27,7 +28,7 @@ const main = async () => {
 				tareas.crearTarea(desc);
 				break;
 			case '2':
-				console.log(tareas._listado);
+				console.log(tareas.listadoArr);
 				break;
 		}
 
