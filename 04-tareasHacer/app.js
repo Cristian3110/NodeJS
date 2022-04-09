@@ -4,6 +4,8 @@
 
 // importando paque instalado
 require('colors');
+
+const { guardarDB } = require('./helpers/guardarArchivos');
 // importando las funciones desde sus origenes u otros archivos
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
@@ -31,6 +33,8 @@ const main = async () => {
 				console.log(tareas.listadoArr);
 				break;
 		}
+
+		guardarDB(tareas.listadoArr);
 
 		// const tareas = new Tareas();
 
