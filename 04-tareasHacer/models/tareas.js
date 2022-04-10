@@ -10,6 +10,12 @@ const Tarea = require('./tarea');
 class Tareas {
 	_listado = {};
 
+	cargarTareasFromArray(tareas = []) {
+		tareas.forEach((tarea) => {
+			this._listado[tarea.id] = tarea;
+		});
+	}
+
 	get listadoArr() {
 		// transformamos el objeto en arreglo recorriendo el mismo
 		const listado = [];

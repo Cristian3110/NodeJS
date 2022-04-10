@@ -22,10 +22,11 @@ const main = async () => {
 
 	// Para leer las tareas
 	if (tareasDB) {
-		// establecer las tareas
+		//cargar las tareas
+		tareas.cargarTareasFromArray(tareasDB);
 	}
 	// para lograr ver las tareas
-	await pausa();
+	// await pausa();
 
 	do {
 		// imprime el menú retornando una opción
