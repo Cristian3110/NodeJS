@@ -5,7 +5,7 @@
 // importando paque instalado
 require('colors');
 
-const { guardarDB } = require('./helpers/guardarArchivos');
+const { guardarDB, leerDB } = require('./helpers/guardarArchivos');
 // importando las funciones desde sus origenes u otros archivos
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
@@ -17,6 +17,15 @@ const Tareas = require('./models/tareas');
 const main = async () => {
 	let opt = '';
 	const tareas = new Tareas();
+
+	const tareasDB = leerDB();
+
+	// Para leer las tareas
+	if (tareasDB) {
+		// establecer las tareas
+	}
+	// para lograr ver las tareas
+	await pausa();
 
 	do {
 		// imprime el menú retornando una opción
