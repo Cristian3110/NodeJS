@@ -30,11 +30,23 @@ class Tareas {
 	constructor() {
 		this._listado = {};
 	}
+
 	// inicializando crearTarea en blanco
 	crearTarea(desc = '') {
 		const tarea = new Tarea(desc);
 
 		this._listado[tarea.id] = tarea;
+	}
+
+	listadoCompleto() {
+		this.listadoArr.forEach((tarea, i) => {
+			const idx = `${i + 1}`.yellow;
+			// desestructurando
+			const { desc, completadoEn } = tarea; // el completado viene de la Data
+			const estado = completadoEn ? 'Completada'.yellow : 'Pendiente'.red;
+
+			console.log(`${idx} ${desc} :: ${estado}`);
+		});
 	}
 }
 
