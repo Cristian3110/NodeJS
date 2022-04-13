@@ -45,7 +45,33 @@ class Tareas {
 			const { desc, completadoEn } = tarea; // el completado viene de la Data
 			const estado = completadoEn ? 'Completada'.yellow : 'Pendiente'.red;
 
-			console.log(`${idx} ${desc} :: ${estado}`);
+			console.log(`${idx + '.-'.yellow} ${desc} :: ${estado}`);
+		});
+	}
+
+	listarPendientesCompletadas(completadas = true) {
+		console.log();
+
+		let contador = 0;
+
+		this.listadoArr.forEach((tarea) => {
+			const { desc, completadoEn } = tarea;
+			const estado = completadoEn ? 'Completada'.yellow : 'Pendiente'.red;
+
+			if (completadas) {
+				//mostrar completados
+				if (completadoEn) {
+					contador += 1;
+					// contador.toString().yellow
+					console.log(`${(contador + '.- ').yellow} ${desc} :: ${estado}`);
+				}
+			} else {
+				//mostrar pendientes
+				if (!completadoEn) {
+					contador += 1;
+					console.log(`${(contador + '.- ').yellow} ${desc} :: ${estado}`);
+				}
+			}
 		});
 	}
 }
