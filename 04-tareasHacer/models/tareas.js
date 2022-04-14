@@ -31,6 +31,14 @@ class Tareas {
 		this._listado = {};
 	}
 
+	// borrando tarea
+
+	borrarTarea(id = '') {
+		if (this._listado[id]) {
+			delete this._listado[id];
+		}
+	}
+
 	// inicializando crearTarea en blanco
 	crearTarea(desc = '') {
 		const tarea = new Tarea(desc);

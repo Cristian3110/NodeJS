@@ -7,7 +7,7 @@ require('colors');
 
 const { guardarDB, leerDB } = require('./helpers/guardarArchivos');
 // importando las funciones desde sus origenes u otros archivos
-const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
+const { inquirerMenu, pausa, leerInput, listadoTareasBorrar } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
 // Esto lo utilizamos para hacerlo manualmente
@@ -49,6 +49,11 @@ const main = async () => {
 				break;
 			case '4': //listar las pendientes
 				tareas.listarPendientesCompletadas(false);
+				// console.log(tareas.listadoArr);
+				break;
+			case '6': // borrar tareas
+				const id = await listadoTareasBorrar(tareas.listadoArr);
+				console.log({ id });
 				// console.log(tareas.listadoArr);
 				break;
 		}
