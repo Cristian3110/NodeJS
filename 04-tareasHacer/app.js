@@ -7,7 +7,13 @@ require('colors');
 
 const { guardarDB, leerDB } = require('./helpers/guardarArchivos');
 // importando las funciones desde sus origenes u otros archivos
-const { inquirerMenu, pausa, leerInput, listadoTareasBorrar } = require('./helpers/inquirer');
+const {
+	inquirerMenu,
+	pausa,
+	leerInput,
+	listadoTareasBorrar,
+	confirmar,
+} = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
 // Esto lo utilizamos para hacerlo manualmente
@@ -53,7 +59,14 @@ const main = async () => {
 				break;
 			case '6': // borrar tareas
 				const id = await listadoTareasBorrar(tareas.listadoArr);
-				console.log({ id });
+				if (id !== '0') {
+					const ok = await confirmar('Está seguro de borrar?');
+					if (ok) {
+						tareas.borrarTarea(id);
+						console.log('Tarea borrada');
+					}
+				}
+				// console.log({ ok });
 				// console.log(tareas.listadoArr);
 				break;
 		}
