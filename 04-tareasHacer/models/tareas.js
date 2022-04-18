@@ -71,7 +71,9 @@ class Tareas {
 				if (completadoEn) {
 					contador += 1;
 					// contador.toString().yellow
-					console.log(`${(contador + '.- ').yellow} ${desc} :: ${estado}`);
+					console.log(
+						`${(contador + '.- ').yellow} ${desc} :: ${estado} :: ${completadoEn.blue}`
+					);
 				}
 			} else {
 				//mostrar pendientes
@@ -79,6 +81,23 @@ class Tareas {
 					contador += 1;
 					console.log(`${(contador + '.- ').yellow} ${desc} :: ${estado}`);
 				}
+			}
+		});
+	}
+
+	toggleCompletadas(ids = []) {
+		ids.forEach((id) => {
+			const tarea = this._listado[id];
+			if (!tarea.completadoEn) {
+				tarea.completadoEn = new Date().toISOString();
+			}
+		});
+
+		this.listadoArr.forEach((tarea) => {
+			if (!ids.includes(tarea.id)) {
+				this._listado[tarea.id].completadoEn = null;
+				// const tarea = this._listado[tarea.id];
+				// tarea.completadoEn = null;
 			}
 		});
 	}
