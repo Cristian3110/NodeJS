@@ -14,14 +14,28 @@ class Busquedas {
 
 	// Metodos
 
+	// los params del endoint
+	get paramsMapbox() {
+		return {
+			limit: 5,
+			language: 'es',
+			access_token:
+				'pk.eyJ1IjoibWFrb3RvMzExMCIsImEiOiJjbDJmbmxzcHAwN2M1M2NvMWdlNXRscW11In0.bVLfVwXCRW4NQGF2NnO0iA',
+		};
+	}
+
 	async ciudad(lugar = '') {
 		//petición http
 		// console.log('ciudad:', lugar);
 
 		try {
-			const resp = await axios.get(
-				'https://api.mapbox.com/geocoding/v5/mapbox.places/Caracas%2C%20Distri%2C%20Venezuela.json?limit=5&language=es&access_token=pk.eyJ1IjoibWFrb3RvMzExMCIsImEiOiJjbDJmbzJrem0wMHcxM2lzMmlnMHltNDMyIn0.amKCl6IarW_E72BXk2Y3EA'
-			);
+			const intance = axios.create({
+				baseURL: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
+				params: this.paramsMapbox,
+			});
+
+			const resp = await intance.get();
+
 			console.log(resp.data);
 
 			return []; // retorna el lugar de busqueda
