@@ -2,10 +2,14 @@
  * Aplicación del clima
  ************************/
 
+require('dotenv').config();
+
 require('colors');
 
 const { leerInput, inquirerMenu, pausa } = require('./helpers/inquirer');
 const Busquedas = require('./models/busquedas');
+
+// console.log(process.env);
 
 const main = async () => {
 	const busqueda = new Busquedas();

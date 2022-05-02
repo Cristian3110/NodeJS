@@ -19,8 +19,8 @@ class Busquedas {
 		return {
 			limit: 5,
 			language: 'es',
-			access_token:
-				'pk.eyJ1IjoibWFrb3RvMzExMCIsImEiOiJjbDJmbmxzcHAwN2M1M2NvMWdlNXRscW11In0.bVLfVwXCRW4NQGF2NnO0iA',
+			// El MAPBOX_KEY es la variable de entorno, en el archivo .env (que no se subió el repo) sin embargo lo puedes detallar en el archivo VE.txt
+			access_token: process.env.MAPBOX_KEY,
 		};
 	}
 

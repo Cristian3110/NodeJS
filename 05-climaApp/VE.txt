@@ -1,0 +1,3 @@
+MAPBOX_KEY='Aqui va la variable de entorno para la conexión con el endpoint '
+
+De igual manera se genera en el archivo .env
