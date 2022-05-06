@@ -14,13 +14,23 @@ class Busquedas {
 
 	// Metodos
 
-	// los params del endoint
+	// los params del endoint MAPBOX
 	get paramsMapbox() {
 		return {
 			limit: 5,
 			language: 'es',
 			// El MAPBOX_KEY es la variable de entorno, en el archivo .env (que no se subió el repo) sin embargo lo puedes detallar en el archivo VE.txt
 			access_token: process.env.MAPBOX_KEY,
+		};
+	}
+
+	// Params del endpoint OPENWEATHER
+
+	get paramsOperWeather() {
+		return {
+			appid: process.env.OPENWEATHER_KEY,
+			units: 'metric',
+			lang: 'es',
 		};
 	}
 
@@ -44,6 +54,28 @@ class Busquedas {
 			}));
 		} catch (error) {
 			return [];
+		}
+	}
+
+	async climaLugar(lat, lon) {
+		try {
+			// instance axios.create()
+			const intance = await axios.create({
+				baseURL: `https://api.openweathermap.org/data/2.5/weather`,
+				params: { ...this.paramsOperWeather, lat, lon },
+			});
+
+			const resp = await intance.get();
+			const { weather, main } = resp.data;
+
+			return {
+				desc: weather[0].description,
+				min: main.temp_min,
+				max: main.temp_max,
+				temp: main.temp,
+			};
+		} catch (error) {
+			console.log(error);
 		}
 	}
 }
