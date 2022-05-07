@@ -2,11 +2,13 @@
  * Modelos
  *************/
 
+const fs = require('fs');
 const axios = require('axios');
 
 // Nota: Las clases se escriben UpperCalmeCase
 class Busquedas {
 	historial = [];
+	dbPath = './db/database.json';
 
 	constructor() {
 		// leer BD si existe
@@ -82,9 +84,23 @@ class Busquedas {
 	agregarHistorial(lugar = '') {
 		// Prevenir duplicados
 
-		this.historial.unshift(lugar);
+		if (this.historial.includes(lugar.toLocaleLowerCase())) {
+			return;
+		}
+
+		this.historial.unshift(lugar.toLocaleLowerCase());
 
 		//Grabar en BD
+
+		this.guardarDB();
+	}
+
+	guardarDB() {
+		const payload = {
+			historial: this.historial,
+		};
+
+		fs.writeFileSync(this.dbPath, JSON.stringify(payload));
 	}
 }
 
