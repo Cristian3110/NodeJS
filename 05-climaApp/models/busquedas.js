@@ -6,7 +6,7 @@ const axios = require('axios');
 
 // Nota: Las clases se escriben UpperCalmeCase
 class Busquedas {
-	historial = ['Caracas', 'Madrid', 'Paris', 'Londres'];
+	historial = [];
 
 	constructor() {
 		// leer BD si existe
@@ -53,7 +53,7 @@ class Busquedas {
 				lat: lugar.center[1],
 			}));
 		} catch (error) {
-			return [];
+			console.log(error.code);
 		}
 	}
 
@@ -77,6 +77,14 @@ class Busquedas {
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	agregarHistorial(lugar = '') {
+		// Prevenir duplicados
+
+		this.historial.unshift(lugar);
+
+		//Grabar en BD
 	}
 }
 
