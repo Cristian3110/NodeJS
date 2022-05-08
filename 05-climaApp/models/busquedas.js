@@ -12,6 +12,7 @@ class Busquedas {
 
 	constructor() {
 		// leer BD si existe
+		this.leerDB();
 	}
 
 	// Metodos
@@ -101,6 +102,15 @@ class Busquedas {
 		};
 
 		fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+	}
+
+	leerDB() {
+		if (!fs.existsSync(this.dbPath)) return;
+
+		const info = fs.readFileSync(this.dbPath, { encoding: 'utf-8' });
+		const data = JSON.parse(info);
+
+		this.historial = data.historial;
 	}
 }
 
