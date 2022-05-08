@@ -99,6 +99,8 @@ class Busquedas {
 		if (this.historial.includes(lugar.toLocaleLowerCase())) {
 			return;
 		}
+		// Mantiene el arreglo del historial con 10 elementos, para no mantenerlo infinito
+		this.historial = this.historial.splice(0, 9);
 
 		this.historial.unshift(lugar.toLocaleLowerCase());
 
