@@ -21,9 +21,13 @@ app.use(express.static('public'));
 // 	res.send('Home Page');
 // });
 
-//New route
+//?New route with template engines
+//* Mandando argumentos renderizados a la page principal
 app.get('/', (req, res) => {
-	res.render('home');
+	res.render('home', {
+		nombre: 'Cristian Carrillo',
+		titulo: 'Node Course',
+	});
 });
 
 app.get('/generic', (req, res) => {
