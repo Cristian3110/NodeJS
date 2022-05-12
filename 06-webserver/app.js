@@ -3,11 +3,15 @@
  ********************************************/
 
 const express = require('express');
+const hbs = require('hbs');
+
 const app = express();
 const port = 8080;
 
 //TODO: require('hbs);
+// *HANDLEBARS
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 //Servir contenido estático
 // middleware
@@ -30,13 +34,29 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.get('/generic', (req, res) => {
-	res.sendFile(__dirname + '/public/generic.html');
-});
+// app.get('/generic', (req, res) => {
+// 	res.sendFile(__dirname + '/public/generic.html');
+// });
+
+//* Realizando handlebars con las otras páginas
 
 app.get('/elements', (req, res) => {
-	res.sendFile(__dirname + '/public/elements.html');
+	res.render('elements', {
+		nombre: 'Cristian Carrillo',
+		titulo: 'Node Course',
+	});
 });
+
+app.get('/generic', (req, res) => {
+	res.render('generic', {
+		nombre: 'Cristian Carrillo',
+		titulo: 'Node Course',
+	});
+});
+
+// app.get('/elements', (req, res) => {
+// 	res.sendFile(__dirname + '/public/elements.html');
+// });
 
 app.get('/hola-mundo', (req, res) => {
 	res.send('Hola mundo en su ruta respectiva');
