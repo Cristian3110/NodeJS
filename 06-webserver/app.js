@@ -2,11 +2,15 @@
  * Right now we're starting work with Express
  ********************************************/
 
+const { config } = require('dotenv');
 const express = require('express');
 const hbs = require('hbs');
+require('dotenv').config();
 
 const app = express();
-const port = 8080;
+// const port = 8080;
+//* Se hace llamado a la variable de entorno
+const port = process.env.PORT;
 
 //TODO: require('hbs);
 // *HANDLEBARS
