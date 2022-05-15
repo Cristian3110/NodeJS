@@ -2,17 +2,11 @@
  * Working with RestServer, also with Express
  *********************************************/
 
-//variables de entorno
 require('dotenv').config();
-const port = process.env.PORT;
+const Server = require('./models/server');
 
-const express = require('express');
-const app = express();
+//variables de entorno
 
-app.get('/', (req, res) => {
-	res.send('Hello World');
-});
+const server = new Server();
 
-app.listen(port, () => {
-	console.log('Servidor corriendo en el puerto:', port);
-});
+server.listen();
