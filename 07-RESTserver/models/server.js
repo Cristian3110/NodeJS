@@ -3,6 +3,7 @@
  ***********************************************/
 
 const express = require('express');
+const cors = require('cors');
 
 const port = process.env.PORT;
 
@@ -12,6 +13,7 @@ class Server {
 		this.port = port;
 
 		// Middlewares
+
 		this.middlewares();
 
 		//Rutas de mi aplicacion
@@ -19,6 +21,9 @@ class Server {
 	}
 
 	middlewares() {
+		// ?CORS configuration
+		this.app.use(cors());
+
 		//Directorio público (Recordar que es el primero que toma por defecto ya q tiene el index.html)
 		this.app.use(express.static('public'));
 	}
