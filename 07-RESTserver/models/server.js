@@ -31,22 +31,16 @@ class Server {
 			});
 		});
 
-		this.app.get('/api', (req, res) => {
-			res.json({
-				ok: true,
-				msg: 'get API',
-			});
-		});
-
 		this.app.put('/api', (req, res) => {
-			res.json({
+			res.status(404).json({
 				ok: true,
 				msg: 'put API',
 			});
 		});
 
 		this.app.post('/api', (req, res) => {
-			res.json({
+			//?Para mandar un status de código desde back
+			res.status(202).json({
 				ok: true,
 				msg: 'post API',
 			});
@@ -54,6 +48,13 @@ class Server {
 
 		this.app.delete('/api', (req, res) => {
 			res.json({
+				ok: true,
+				msg: 'delete API',
+			});
+		});
+
+		this.app.patch('/api', (req, res) => {
+			res.status(500).json({
 				ok: true,
 				msg: 'delete API',
 			});
