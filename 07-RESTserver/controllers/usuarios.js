@@ -11,9 +11,16 @@ const usuariosGet = (req, res = response) => {
 };
 
 const usuariosPost = (req, res) => {
+	// const body = req.body;
+	//* Podemos desestructurar de la siguiente manera para especificar o validar lo q se manda
+	const { nombres, apellidos } = req.body;
+
 	//?Para mandar un status de código desde back
 	res.status(202).json({
 		msg: 'Post API - From controlador',
+		// body: body,
+		nombres,
+		apellidos,
 	});
 };
 const usuariosPut = (req, res) => {

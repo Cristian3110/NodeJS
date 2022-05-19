@@ -14,7 +14,6 @@ class Server {
 		this.usuariosPath = '/api/usuarios';
 
 		// Middlewares
-
 		this.middlewares();
 
 		//Rutas de mi aplicacion
@@ -22,8 +21,11 @@ class Server {
 	}
 
 	middlewares() {
-		// ?CORS configuration
+		// CORS configuration
 		this.app.use(cors());
+
+		//Lectura y parseo del body
+		this.app.use(express.json());
 
 		//Directorio público (Recordar que es el primero que toma por defecto ya q tiene el index.html)
 		this.app.use(express.static('public'));
