@@ -17,7 +17,7 @@ const router = Router();
 //Ruta que viene definida de archivos independientes y controladores
 router.get('/', usuariosGet);
 
-router.put('/', usuariosPut);
+router.put('/:id', usuariosPut);
 
 router.post('/', usuariosPost);
 
