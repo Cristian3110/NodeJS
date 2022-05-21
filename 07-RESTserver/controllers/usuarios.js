@@ -3,6 +3,7 @@
  */
 
 const { response } = require('express');
+const Usuario = require('../models/usuario');
 
 const usuariosGet = (req, res = response) => {
 	//obteniendo todos los params query desde la ruta
@@ -21,17 +22,23 @@ const usuariosGet = (req, res = response) => {
 	});
 };
 
-const usuariosPost = (req, res) => {
+const usuariosPost = async (req, res) => {
 	// const body = req.body;
 	//* Podemos desestructurar de la siguiente manera para especificar o validar lo q se manda
-	const { nombres, apellidos } = req.body;
+	// const { nombre, apellido } = req.body;
+	const body = req.body;
+	const usuario = new Usuario(body);
+
+	// con esto hacemos la grabacion en DB
+	await usuario.save();
 
 	//?Para mandar un status de código desde back
 	res.status(202).json({
-		msg: 'Post API - From controlador',
+		// msg: 'Post API - From controlador',
 		// body: body,
-		nombres,
-		apellidos,
+		// nombre,
+		// apellido,
+		usuario,
 	});
 };
 const usuariosPut = (req, res = response) => {
