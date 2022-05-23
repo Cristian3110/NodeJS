@@ -4,6 +4,7 @@
 
 const { response } = require('express');
 const Usuario = require('../models/usuario');
+const bcrypt = require('bcryptjs');
 
 const usuariosGet = (req, res = response) => {
 	//obteniendo todos los params query desde la ruta
@@ -25,9 +26,17 @@ const usuariosGet = (req, res = response) => {
 const usuariosPost = async (req, res) => {
 	// const body = req.body;
 	//* Podemos desestructurar de la siguiente manera para especificar o validar lo q se manda
-	// const { nombre, apellido } = req.body;
-	const body = req.body;
-	const usuario = new Usuario(body);
+	const { nombre, correo, password, rol } = req.body;
+	// const body = req.body;
+	// const usuario = new Usuario(body);
+	//? desestructurando solo los campos obligatorios
+	const usuario = new Usuario({ nombre, correo, password, rol });
+
+	//Verificar si el correo existe
+
+	//Encriptar la contraseña
+	const salt = bcrypt.genSaltSync();
+	usuario.password = bcrypt.hashSync(password, salt);
 
 	// con esto hacemos la grabacion en DB
 	await usuario.save();
