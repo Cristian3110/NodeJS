@@ -23,7 +23,13 @@ const usuariosGet = (req, res = response) => {
 	});
 };
 
-const usuariosPost = async (req, res) => {
+const usuariosPost = async (req, res = response) => {
+	//? Este código lo convertimos a un middlewares para optimizar código
+	// const errors = validationResult(req);
+	// if (!errors.isEmpty()) {
+	// 	return res.status(400).json(errors);
+	// }
+
 	// const body = req.body;
 	//* Podemos desestructurar de la siguiente manera para especificar o validar lo q se manda
 	const { nombre, correo, password, rol } = req.body;
@@ -33,6 +39,12 @@ const usuariosPost = async (req, res) => {
 	const usuario = new Usuario({ nombre, correo, password, rol });
 
 	//Verificar si el correo existe
+	const existeEmail = await Usuario.findOne({ correo: correo });
+	if (existeEmail) {
+		return res.status(400).json({
+			msg: 'Ese correo ya se encuentra registrado',
+		});
+	}
 
 	//Encriptar la contraseña
 	const salt = bcrypt.genSaltSync();
