@@ -36,6 +36,7 @@ const UsuarioSchema = Schema({
 	},
 });
 
+// Método para sobreescribir mongoose
 UsuarioSchema.methods.toJSON = function () {
 	const { __v, password, ...usuario } = this.toObject();
 	return usuario;
