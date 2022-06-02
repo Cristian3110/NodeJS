@@ -38,13 +38,13 @@ const usuariosPost = async (req, res = response) => {
 	//? desestructurando solo los campos obligatorios
 	const usuario = new Usuario({ nombre, correo, password, rol });
 
-	//Verificar si el correo existe
-	const existeEmail = await Usuario.findOne({ correo: correo });
-	if (existeEmail) {
-		return res.status(400).json({
-			msg: 'Ese correo ya se encuentra registrado',
-		});
-	}
+	//?Verificar si el correo existe
+	// const existeEmail = await Usuario.findOne({ correo: correo });
+	// if (existeEmail) {
+	// 	return res.status(400).json({
+	// 		msg: 'Ese correo ya se encuentra registrado',
+	// 	});
+	// }
 
 	//Encriptar la contraseña
 	const salt = bcrypt.genSaltSync();
