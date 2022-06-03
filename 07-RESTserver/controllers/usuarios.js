@@ -2,24 +2,30 @@
  * Controladores
  */
 
-const { response } = require('express');
+const { response, request } = require('express');
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 
-const usuariosGet = (req, res = response) => {
+const usuariosGet = async (req = request, res = response) => {
+	// Solicitud de usuarios por
+	const { limite = 5, desde = 0 } = req.query;
+
+	const usuarios = await Usuario.find().limit(Number(limite)).skip(Number(desde));
+
 	//obteniendo todos los params query desde la ruta
-	const query = req.query;
+	// const query = req.query;
 	//obteniendo de manera desestructurada
-	const { q, nombre, apikey, page = 1, limit } = req.query;
+	// const { q, nombre, apikey, page = 1, limit } = req.query;
 	//* Nota: En caso de no envíar el parametro de la página, colocamos uno por defecto q es la 1
 	res.json({
 		msg: 'Get API - Controlador',
 		// query, <-- Así vendrían todos
-		q,
-		nombre,
-		apikey,
-		page,
-		limit,
+		// q,
+		// nombre,
+		// apikey,
+		// page,
+		// limit,
+		usuarios,
 	});
 };
 
@@ -79,7 +85,7 @@ const usuariosPut = async (req, res = response) => {
 	const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
 	res.json({
-		msg: 'Put API - From Controlador',
+		// msg: 'Put API - From Controlador',
 		usuario,
 	});
 };
