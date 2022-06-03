@@ -7,7 +7,7 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middleware/validar-campos');
-const { esRolValido, emailExiste } = require('../helpers/dbValidators');
+const { esRolValido, emailExiste, existeUsuarioPorId } = require('../helpers/dbValidators');
 
 const {
 	usuariosGet,
@@ -22,7 +22,16 @@ const router = Router();
 //Ruta que viene definida de archivos independientes y controladores
 router.get('/', usuariosGet);
 
-router.put('/:id', usuariosPut);
+router.put(
+	'/:id',
+	[
+		check('id', 'No es un Id valido').isMongoId(),
+		check('id').custom(existeUsuarioPorId),
+		check('rol').custom(esRolValido),
+		validarCampos,
+	],
+	usuariosPut
+);
 
 router.post(
 	'/',
