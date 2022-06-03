@@ -62,18 +62,25 @@ const usuariosPost = async (req, res = response) => {
 		usuario,
 	});
 };
-const usuariosPut = (req, res = response) => {
+const usuariosPut = async (req, res = response) => {
 	// params id
 	// const id = req.params.id;
 	//También si tuvieramos más elementos, se pueden desestructurar
 	const { id } = req.params;
-	const { nombres, edad } = req.body;
+	const { password, google, correo, ...resto } = req.body;
+
+	// TODO: Validar contra base de Datos
+
+	if (password) {
+		const salt = bcrypt.genSaltSync();
+		resto.password = bcrypt.hashSync(password, salt);
+	}
+
+	const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
 	res.json({
 		msg: 'Put API - From Controlador',
-		id,
-		nombres,
-		edad,
+		usuario,
 	});
 };
 
