@@ -9,8 +9,18 @@ const bcrypt = require('bcryptjs');
 const usuariosGet = async (req = request, res = response) => {
 	// Solicitud de usuarios por
 	const { limite = 5, desde = 0 } = req.query;
+	// Para traer solo usuarios con estados en true
+	const query = { estado: true };
 
-	const usuarios = await Usuario.find().limit(Number(limite)).skip(Number(desde));
+	//? Como referencia
+	// const usuarios = await Usuario.find(query).limit(Number(limite)).skip(Number(desde));
+	// const total = await Usuario.countDocuments(query);
+
+	//?Destructuración de arreglos, no de objetos
+	const [total, usuarios] = await Promise.all([
+		Usuario.countDocuments(query),
+		Usuario.find(query).limit(Number(limite)).skip(Number(desde)),
+	]);
 
 	//obteniendo todos los params query desde la ruta
 	// const query = req.query;
@@ -25,7 +35,9 @@ const usuariosGet = async (req = request, res = response) => {
 		// apikey,
 		// page,
 		// limit,
+		total,
 		usuarios,
+		//resp,
 	});
 };
 
