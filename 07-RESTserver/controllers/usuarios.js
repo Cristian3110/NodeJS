@@ -17,6 +17,7 @@ const usuariosGet = async (req = request, res = response) => {
 	// const total = await Usuario.countDocuments(query);
 
 	//?Destructuración de arreglos, no de objetos
+	//Utilizando Promise.all para que se ejecuten las 2 promesa en simultaneo y minimizar los seg
 	const [total, usuarios] = await Promise.all([
 		Usuario.countDocuments(query),
 		Usuario.find(query).limit(Number(limite)).skip(Number(desde)),
@@ -108,9 +109,20 @@ const usuariosPatch = (req, res) => {
 	});
 };
 
-const usuariosDelete = (req, res) => {
+const usuariosDelete = async (req, res) => {
+	const { id } = req.params;
+
+	//!fisicamente borrando un usuario (no recomendado)
+	// const usuario = await Usuario.findByIdAndDelete(id);
+
+	// Cambiamos el estado del usuario en la DB como deshabilitado (recomendable)
+	const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+
 	res.json({
-		msg: 'Delete API - From controlador',
+		// msg: 'Delete API - From controlador',
+		msg: `Usuario con id: ${id} fue eliminado (deshabilitado)`,
+		id,
+		usuario,
 	});
 };
 
