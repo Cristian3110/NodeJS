@@ -112,6 +112,8 @@ const usuariosPatch = (req, res) => {
 const usuariosDelete = async (req, res) => {
 	const { id } = req.params;
 
+	const uid = req.uid;
+
 	//!fisicamente borrando un usuario (no recomendado)
 	// const usuario = await Usuario.findByIdAndDelete(id);
 
@@ -123,6 +125,7 @@ const usuariosDelete = async (req, res) => {
 		msg: `Usuario con id: ${id} fue eliminado (deshabilitado)`,
 		id,
 		usuario,
+		uid,
 	});
 };
 
