@@ -120,12 +120,16 @@ const usuariosDelete = async (req, res) => {
 	// Cambiamos el estado del usuario en la DB como deshabilitado (recomendable)
 	const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
 
+	//const usuarioAutenticado
+	const usuarioAutenticado = req.usuario;
+
 	res.json({
 		// msg: 'Delete API - From controlador',
 		msg: `Usuario con id: ${id} fue eliminado (deshabilitado)`,
 		id,
 		usuario,
 		uid,
+		usuarioAutenticado,
 	});
 };
 
