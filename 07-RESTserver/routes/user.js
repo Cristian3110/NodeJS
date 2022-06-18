@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middleware/validar-campos');
 const { validarJWT } = require('../middleware/validar-jwt');
 const { esRolValido, emailExiste, existeUsuarioPorId } = require('../helpers/dbValidators');
+const { esAdminRole } = require('../middleware/validar-roles');
 
 const {
 	usuariosGet,
@@ -54,6 +55,7 @@ router.delete(
 	'/:id',
 	[
 		validarJWT,
+		esAdminRole,
 		(check('id', 'No es un Id valido').isMongoId(), check('id').custom(existeUsuarioPorId)),
 		validarCampos,
 	],
