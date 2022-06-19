@@ -4,6 +4,8 @@
 
 const { response } = require('express');
 
+// Configuración solo para usuarios Administradores
+
 const esAdminRole = (req, res = response, next) => {
 	if (!req.usuario) {
 		return res.status(500).json({
@@ -22,4 +24,25 @@ const esAdminRole = (req, res = response, next) => {
 	next();
 };
 
-module.exports = { esAdminRole };
+// configuración para roles específicos.(distintos)
+
+const tieneRole = (...roles) => {
+	return (req, res = response, next) => {
+		// console.log(roles);
+
+		if (!req.usuario) {
+			return res.status(500).json({
+				msg: 'Se quiere verificar el rol sin validar el token primmero',
+			});
+		}
+
+		if (!roles.includes(req.usuario.rol)) {
+			return res.status(401).json({
+				msg: `El servicio requiere uno de estos roles ${roles}`,
+			});
+		}
+		next();
+	};
+};
+
+module.exports = { esAdminRole, tieneRole };
