@@ -10,13 +10,31 @@
 		<hr />
 		<div id="buttonDiv"></div>
 		<hr />
-		<a href="#" onclick="signOut();">Sign out</a>
 
 		<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 		<script>
+			// especificando que estamos en Desarrollo, devuelve true
+			console.log(window.location.hostname.includes('localhost'));
+			// ternary operator
+			var url = window.location.hostname.includes('localhost')
+				? 'http://localhost:8080/api/auth/google'
+				: 'https://restserver-production.up.railway.app/api/auth/google';
+
 			function handleCredentialResponse(response) {
 				console.log('Encoded JWT ID token: ' + response.credential);
+				console.log(response);
+
+				let id_token = response.credential;
+				const data = { id_token };
+				fetch(url, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(data),
+				})
+					.then((resp) => resp.json())
+					.then((data) => console.log('My server', data))
+					.catch((err) => console.log(err));
 			}
 			window.onload = function () {
 				google.accounts.id.initialize({

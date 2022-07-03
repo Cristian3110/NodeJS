@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response, request } = require('express');
 const bcrytjs = require('bcryptjs');
 
 const Usuario = require('../models/usuario');
@@ -50,4 +50,13 @@ const login = async (req, res = response) => {
 	}
 };
 
-module.exports = { login };
+const googleSignIn = (req, res = response) => {
+	const { id_token } = req.body;
+
+	res.json({
+		msg: 'Todo OK con el googleSingIn',
+		id_token,
+	});
+};
+
+module.exports = { login, googleSignIn };
