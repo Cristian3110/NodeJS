@@ -1,8 +1,9 @@
 // this Router comming from express
 const { Router } = require('express');
 const { check } = require('express-validator');
+const { crearCategoria } = require('../controllers/categorias');
 
-const { validarCampos } = require('../middleware/validar-campos');
+const { validarJWT, validarCampos } = require('../middleware');
 
 const router = Router();
 
@@ -21,11 +22,11 @@ router.get('/:id', (req, res) => {
 });
 
 // Crear una nueva categoria - privado con un token válido
-router.post('/', (req, res) => {
-	res.json({
-		msg: 'Post',
-	});
-});
+router.post(
+	'/',
+	[validarJWT, check('nombre', 'El nombre es obligatorio').not().isEmpty(), validarCampos],
+	crearCategoria
+);
 
 // Actualizar privado - cualquiera con token válido
 router.put('/:id', (req, res) => {
