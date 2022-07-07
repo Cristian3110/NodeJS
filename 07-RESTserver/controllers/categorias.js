@@ -5,6 +5,10 @@
 const { response } = require('express');
 const { Categoria } = require('../models');
 
+// Obtener categorías - páginado - total - populate
+
+// Obtener categoría  - populate{}
+
 const crearCategoria = async (req, resp = response) => {
 	const nombre = req.body.nombre.toUpperCase();
 
@@ -35,6 +39,10 @@ const crearCategoria = async (req, resp = response) => {
 		categoria,
 	});
 };
+
+// Actualizar categorías
+
+// Borrar categoria - solo cambiando el estado a Falso
 
 module.exports = {
 	crearCategoria,
