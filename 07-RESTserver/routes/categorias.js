@@ -1,7 +1,7 @@
 // this Router comming from express
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { crearCategoria } = require('../controllers/categorias');
+const { crearCategoria, obtenerCategoria } = require('../controllers/categorias');
 const { existeCategoria } = require('../helpers/dbValidators');
 
 const { validarJWT, validarCampos } = require('../middleware');
@@ -9,11 +9,7 @@ const { validarJWT, validarCampos } = require('../middleware');
 const router = Router();
 
 // Obtener todas las categorias - publico
-router.get('/', (req, res) => {
-	res.json({
-		msg: 'Get',
-	});
-});
+router.get('/', obtenerCategoria);
 
 // Obtener una categoria por Id - público
 router.get('/:id', [check('id').custom(existeCategoria)], (req, res) => {

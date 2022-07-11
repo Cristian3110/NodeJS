@@ -31,10 +31,10 @@ const existeUsuarioPorId = async (id) => {
 };
 
 const existeCategoria = async (id) => {
-	const existeCat = await Categoria.findOne(id);
+	const existeCat = await Categoria.findById(id);
 
-	if (existeCat) {
-		throw Error(`La categoría ${nombre} ya existe en la BD`);
+	if (!existeCat) {
+		throw Error(`La categoría ${id} no existe en la BD`);
 	}
 };
 
