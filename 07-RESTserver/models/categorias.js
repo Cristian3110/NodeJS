@@ -22,4 +22,10 @@ const CategoriaSchema = Schema({
 	},
 });
 
+CategoriaSchema.methods.toJSON = function () {
+	const { __v, estado, ...data } = this.toObject();
+	// Cambiando visualmente el _id de mongoose por el uid personalizado
+	return data;
+};
+
 module.exports = model('Categoria', CategoriaSchema);

@@ -12,9 +12,13 @@ const obtenerCategoria = async (req, res = response) => {
 	// Para traer solo usuarios con estados en true
 	const query = { estado: true };
 
+	//? utilizando el populate
 	const [total, categorias] = await Promise.all([
 		Categoria.countDocuments(query),
-		Categoria.find(query).limit(Number(limite)).skip(Number(desde)),
+		Categoria.find(query)
+			.populate('usuario', 'nombre')
+			.limit(Number(limite))
+			.skip(Number(desde)),
 	]);
 
 	res.json({

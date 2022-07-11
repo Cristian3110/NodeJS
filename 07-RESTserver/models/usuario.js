@@ -5,9 +5,6 @@
 const { Schema, model } = require('mongoose');
 
 const UsuarioSchema = Schema({
-	_id: {
-		type: Schema.Types.ObjectId,
-	},
 	nombre: {
 		type: String,
 		required: [true, 'El nombre es obligatorio'],
@@ -37,10 +34,6 @@ const UsuarioSchema = Schema({
 	google: {
 		type: Boolean,
 		default: false,
-	},
-	categorias: {
-		type: Schema.Types.ObjectId,
-		ref: 'Categoria',
 	},
 });
 
