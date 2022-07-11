@@ -3,8 +3,7 @@
  */
 
 const Role = require('../models/role');
-const Usuario = require('../models/usuario');
-const Categoria = require('../models/categorias');
+const { Usuario, Categoria } = require('../models');
 
 const esRolValido = async (rol = '') => {
 	const existeRol = await Role.findOne({ rol });
@@ -30,11 +29,11 @@ const existeUsuarioPorId = async (id) => {
 	}
 };
 
-const existeCategoria = async (id) => {
+const existeCategoriaPorId = async (id) => {
 	const existeCat = await Categoria.findById(id);
 
 	if (!existeCat) {
-		throw Error(`La categoría ${id} no existe en la BD`);
+		throw Error(`El id: ${id} no existe en la BD`);
 	}
 };
 
@@ -42,5 +41,5 @@ module.exports = {
 	esRolValido,
 	emailExiste,
 	existeUsuarioPorId,
-	existeCategoria,
+	existeCategoriaPorId,
 };

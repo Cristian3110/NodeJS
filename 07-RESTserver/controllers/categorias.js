@@ -7,7 +7,7 @@ const { Categoria } = require('../models');
 
 // Obtener categorías - páginado - total - populate
 
-const obtenerCategoria = async (req, res = response) => {
+const obtenerCategorias = async (req, res = response) => {
 	const { limite = 5, desde = 0 } = req.query;
 	// Para traer solo usuarios con estados en true
 	const query = { estado: true };
@@ -28,6 +28,17 @@ const obtenerCategoria = async (req, res = response) => {
 };
 
 // Obtener categoría  - populate{}
+
+const obtenerCategoria = async (req, res = response) => {
+	//validando
+	const { id } = req.params;
+
+	const categoria = await Categoria.findById(id).populate('usuario', 'nombre');
+
+	res.json({
+		categoria,
+	});
+};
 
 // Crear categoria
 
@@ -68,5 +79,6 @@ const crearCategoria = async (req, resp = response) => {
 
 module.exports = {
 	crearCategoria,
+	obtenerCategorias,
 	obtenerCategoria,
 };
