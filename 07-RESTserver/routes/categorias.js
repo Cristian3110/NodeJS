@@ -5,10 +5,12 @@ const {
 	crearCategoria,
 	obtenerCategorias,
 	obtenerCategoria,
+	actualizarCategoria,
+	borraCategoria,
 } = require('../controllers/categorias');
 const { existeCategoriaPorId } = require('../helpers/dbValidators');
 
-const { validarJWT, validarCampos } = require('../middleware');
+const { validarJWT, validarCampos, esAdminRole } = require('../middleware');
 
 const router = Router();
 
@@ -34,16 +36,27 @@ router.post(
 );
 
 // Actualizar privado - cualquiera con token válido
-router.put('/:id', (req, res) => {
-	res.json({
-		msg: 'Put categorias Actualizada',
-	});
-});
+router.put(
+	'/:id',
+	[
+		validarJWT,
+		check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+		check('id').custom(existeCategoriaPorId),
+		validarCampos,
+	],
+	actualizarCategoria
+);
 
-router.delete('/:id', (req, res) => {
-	res.json({
-		msg: 'Delete - Eliminar',
-	});
-});
+router.delete(
+	'/:id',
+	[
+		validarJWT,
+		esAdminRole,
+		check('id', 'No es un Id de Mongo').isMongoId(),
+		validarCampos,
+		check('id').custom(existeCategoriaPorId),
+	],
+	borraCategoria
+);
 
 module.exports = router;
