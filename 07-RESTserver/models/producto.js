@@ -27,14 +27,14 @@ const ProductoSchema = Schema({
 	categoria: {
 		type: Schema.Types.ObjectId,
 		ref: 'Categoria',
-		required: true,
+		required: [true, 'La categoria debe existir'],
 	},
 	descripcion: { type: String },
 	disponible: { type: Boolean, default: true },
 });
 
 ProductoSchema.methods.toJSON = function () {
-	const { __v, estado, ...data } = this.toObject();
+	const { __v, estado, precio, descripcion, disponible, ...data } = this.toObject();
 	// Cambiando visualmente el _id de mongoose por el uid personalizado
 	return data;
 };
