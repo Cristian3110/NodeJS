@@ -1,5 +1,5 @@
 /**
- * controlando nuestra categoria
+ * controlando nuestros productos
  */
 
 const { response } = require('express');
@@ -46,10 +46,9 @@ const obtenerProducto = async (req, res = response) => {
 // Crear producto
 
 const crearProducto = async (req, res = response) => {
-	//sacando estado y usuario (destrcuturando)
 	const { estado, usuario, ...body } = req.body;
 
-	//verificando si hay un Producto en BD igual
+	//verificando si hay un producto en BD igual
 	const productoDB = await Producto.findOne({ nombre: body.nombre });
 
 	if (productoDB) {
@@ -59,14 +58,13 @@ const crearProducto = async (req, res = response) => {
 	}
 
 	// Generando la data a guardar
-	// el ...body es paa guardar todo lo demás q venga en el body
 	const data = {
-		...body,
 		nombre: body.nombre.toUpperCase(),
+		...body,
 		usuario: req.usuario._id,
 	};
 
-	// console.log(data);
+	console.log(data);
 
 	const producto = new Producto(data);
 

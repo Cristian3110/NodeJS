@@ -34,7 +34,7 @@ const ProductoSchema = Schema({
 });
 
 ProductoSchema.methods.toJSON = function () {
-	const { __v, estado, precio, descripcion, disponible, ...data } = this.toObject();
+	const { __v, estado, descripcion, disponible, ...data } = this.toObject();
 	// Cambiando visualmente el _id de mongoose por el uid personalizado
 	return data;
 };

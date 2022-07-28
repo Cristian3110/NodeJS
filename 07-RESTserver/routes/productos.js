@@ -1,6 +1,7 @@
 // this Router comming from express
 const { Router } = require('express');
 const { check } = require('express-validator');
+const { validarJWT, validarCampos, esAdminRole } = require('../middleware');
 const {
 	crearProducto,
 	obtenerProductos,
@@ -10,8 +11,6 @@ const {
 } = require('../controllers/productos');
 
 const { existeProductoPorId, existeCategoriaPorId } = require('../helpers/dbValidators');
-
-const { validarJWT, validarCampos, esAdminRole } = require('../middleware');
 
 const router = Router();
 
@@ -23,8 +22,8 @@ router.get(
 	'/:id',
 	[
 		check('id', 'No es un Id de Mongo').isMongoId(),
-		validarCampos,
 		check('id').custom(existeProductoPorId),
+		validarCampos,
 	],
 	obtenerProducto
 );

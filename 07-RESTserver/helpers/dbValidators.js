@@ -33,7 +33,7 @@ const existeCategoriaPorId = async (id) => {
 	const existeCat = await Categoria.findById(id);
 
 	if (!existeCat) {
-		throw Error(`El id: ${id} no existe en la BD`);
+		throw new Error(`El id: ${id} no existe en la BD`);
 	}
 };
 
@@ -41,7 +41,7 @@ const existeProductoPorId = async (id) => {
 	const existeProd = await Producto.findById(id);
 
 	if (!existeProd) {
-		throw Error(`El id: ${id} no existe en la BD`);
+		throw new Error(`El id: ${id} no existe en la BD`);
 	}
 };
 
