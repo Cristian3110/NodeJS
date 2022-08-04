@@ -8,7 +8,7 @@ const { Categoria } = require('../models');
 // Obtener categorías - páginado - total - populate
 
 const obtenerCategorias = async (req, res = response) => {
-	const { limite = 5, desde = 0 } = req.query;
+	const { limite = 10, desde = 0 } = req.query;
 	// Para traer solo usuarios con estados en true
 	const query = { estado: true };
 
