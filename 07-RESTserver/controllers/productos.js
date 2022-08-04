@@ -46,35 +46,41 @@ const obtenerProducto = async (req, res = response) => {
 // Crear producto
 
 const crearProducto = async (req, res = response) => {
-	const { estado, usuario, ...body } = req.body;
+	// ** Nota: Se manejó el error E11000 duplicate key error collection con el try and Catch (investigar)
+	try {
+		const { estado, usuario, ...body } = req.body;
 
-	//verificando si hay un producto en BD igual
-	const productoDB = await Producto.findOne({ nombre: body.nombre });
+		//verificando si hay un producto en BD igual
+		const productoDB = await Producto.findOne({ nombre: body.nombre });
+		if (productoDB) {
+			return res.status(400).json({
+				msg: `El producto ${productoDB.nombre}, ya existe`,
+			});
+		}
 
-	if (productoDB) {
-		return res.status(400).json({
-			msg: `El producto ${productoDB.nombre}, ya existe`,
+		// Generando la data a guardar
+		const data = {
+			...body,
+			nombre: body.nombre.toUpperCase(),
+			usuario: req.usuario._id,
+		};
+
+		console.log(data);
+
+		const producto = new Producto(data);
+
+		// Guardar DB
+
+		await producto.save();
+
+		res.status(201).json({
+			producto,
+		});
+	} catch (error) {
+		res.status(400).json({
+			msg: `El producto ${error.keyValue.nombre} ya está registrado`,
 		});
 	}
-
-	// Generando la data a guardar
-	const data = {
-		nombre: body.nombre.toUpperCase(),
-		...body,
-		usuario: req.usuario._id,
-	};
-
-	console.log(data);
-
-	const producto = new Producto(data);
-
-	// Guardar DB
-
-	await producto.save();
-
-	res.status(201).json({
-		producto,
-	});
 };
 
 // Actualizar producto
