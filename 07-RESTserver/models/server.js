@@ -15,10 +15,11 @@ class Server {
 		this.port = port;
 
 		this.path = {
-			usuario: '/api/usuarios',
 			auth: '/api/auth',
-			productos: '/api/productos',
+			buscar: '/api/buscar',
 			categorias: '/api/categorias',
+			productos: '/api/productos',
+			usuario: '/api/usuarios',
 		};
 		// this.usuariosPath = '/api/usuarios';
 		// this.authPath = '/api/auth';
@@ -51,6 +52,7 @@ class Server {
 
 	routes() {
 		this.app.use(this.path.auth, require('../routes/auth'));
+		this.app.use(this.path.buscar, require('../routes/buscar'));
 		this.app.use(this.path.categorias, require('../routes/categorias'));
 		this.app.use(this.path.productos, require('../routes/productos'));
 		this.app.use(this.path.usuario, require('../routes/user'));
