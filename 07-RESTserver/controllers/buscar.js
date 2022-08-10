@@ -14,6 +14,20 @@ const buscarUsuarios = async (termino = '', res = response) => {
 			results: usuario ? [usuario] : [],
 		});
 	}
+
+	//expresión regular para busqueda (insensible a las mayusculas)
+	const regex = new RegExp(termino, 'i');
+
+	// aplicando la propiedad de mongo para buscar 2 condiciones para la expresión regular o termino
+	const usuarios = await Usuario.find({
+		//condiciones
+		$or: [{ nombre: regex }, { correo: regex }],
+		$and: [{ estado: true }],
+	});
+
+	res.json({
+		results: usuarios,
+	});
 };
 
 const buscar = (req, res = response) => {
