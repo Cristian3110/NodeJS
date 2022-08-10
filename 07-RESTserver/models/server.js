@@ -19,6 +19,7 @@ class Server {
 			buscar: '/api/buscar',
 			categorias: '/api/categorias',
 			productos: '/api/productos',
+			uploads: '/api/uploads',
 			usuario: '/api/usuarios',
 		};
 		// this.usuariosPath = '/api/usuarios';
@@ -55,6 +56,7 @@ class Server {
 		this.app.use(this.path.buscar, require('../routes/buscar'));
 		this.app.use(this.path.categorias, require('../routes/categorias'));
 		this.app.use(this.path.productos, require('../routes/productos'));
+		this.app.use(this.path.uploads, require('../routes/uploads'));
 		this.app.use(this.path.usuario, require('../routes/user'));
 	}
 
