@@ -10,6 +10,7 @@ const subirArchivo = (
 	carpeta = ''
 ) => {
 	return new Promise((resolve, reject) => {
+		// Lo que se está recibiendo
 		const { archivo } = files;
 		const nombreCortado = archivo.name.split('.');
 		// console.log(nombreCortado);
@@ -21,7 +22,7 @@ const subirArchivo = (
 
 		if (!extensionesValidas.includes(extension)) {
 			return reject(
-				`La extensión ${extension} del archivo, no es permitida! Sugerencia ${extensionesValidas}`
+				`La extensión ${extension}, no es permitida! Sugerencia ${extensionesValidas}`
 			);
 			// return res.status(400).json({
 			// 	msg: `La extensión ${extension} del archivo, no es permitida! Sugerencia ${extensionesValidas}`,
