@@ -31,6 +31,8 @@ const actualizarImg = async (req, res = response) => {
 
 	let modelo;
 
+	// Validando las colecciones
+
 	switch (coleccion) {
 		case 'usuarios':
 			modelo = await Usuario.findById(id);
@@ -51,6 +53,10 @@ const actualizarImg = async (req, res = response) => {
 			break;
 		default:
 			return res.status(500).json({ msg: 'Se me olvidó validar esto' });
+	}
+
+	if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
+		return res.status(400).json({ Msg: 'No hay archivos que subir' });
 	}
 
 	const pathArchivo = await subirArchivo(req.files, undefined, coleccion);
