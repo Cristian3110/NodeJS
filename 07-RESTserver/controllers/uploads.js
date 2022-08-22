@@ -110,14 +110,17 @@ const mostrarImg = async (req, res = response) => {
 	}
 
 	if (modelo.img) {
+		//construyendo el path donde se va a guardar
 		const pathImagen = path.join(__dirname, '../uploads', coleccion, modelo.img);
 
 		if (fs.existsSync(pathImagen)) {
 			return res.sendFile(pathImagen);
 		}
 	}
-	// Aqui podriamos mandar una img por defecto
-	res.json({ msg: 'Falta place holder' });
+	// Aqui mandamos una img por defecto si el producto o usuario no tiene img
+
+	const imgNoFound = path.join(__dirname, '../assets/', 'no-image.jpg');
+	return res.sendFile(imgNoFound);
 };
 
 module.exports = {
