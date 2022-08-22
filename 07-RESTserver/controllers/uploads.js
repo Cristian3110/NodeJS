@@ -1,3 +1,6 @@
+const path = require('path');
+const fs = require('fs');
+
 const { response, json } = require('express');
 const { subirArchivo } = require('../helpers');
 
@@ -58,6 +61,17 @@ const actualizarImg = async (req, res = response) => {
 	// 	return res.status(400).json({ Msg: 'No hay archivos que subir' });
 	// }
 
+	//Limpiar imágenes previas
+
+	if (modelo.img) {
+		// hay que borrar la imagen del servidor
+		const pathImagen = path.join(__dirname, '../uploads', coleccion, modelo.img);
+
+		if (fs.existsSync(pathImagen)) {
+			fs.unlinkSync(pathImagen);
+		}
+	}
+
 	const pathArchivo = await subirArchivo(req.files, undefined, coleccion);
 	modelo.img = pathArchivo;
 
@@ -66,7 +80,16 @@ const actualizarImg = async (req, res = response) => {
 	res.json(modelo);
 };
 
+const mostrarImg = (req, res = response) => {
+	const { id, coleccion } = req.params;
+	res.json({
+		id,
+		coleccion,
+	});
+};
+
 module.exports = {
 	cargarArchivo,
 	actualizarImg,
+	mostrarImg,
 };
