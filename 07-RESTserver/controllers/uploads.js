@@ -1,14 +1,13 @@
 const { response, json } = require('express');
-const { model } = require('mongoose');
 const { subirArchivo } = require('../helpers');
 
 const { Usuario, Producto } = require('../models');
 
 const cargarArchivo = async (req, res = response) => {
 	// esperando req del archivo que viene
-	if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-		return res.status(400).json({ Msg: 'No hay archivos que subir' });
-	}
+	// if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
+	// 	return res.status(400).json({ Msg: 'No hay archivos que subir' });
+	// }
 
 	try {
 		// const pathArchivo = await subirArchivo(req.files, ['txt', 'md'], 'textos');
@@ -55,9 +54,9 @@ const actualizarImg = async (req, res = response) => {
 			return res.status(500).json({ msg: 'Se me olvidó validar esto' });
 	}
 
-	if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-		return res.status(400).json({ Msg: 'No hay archivos que subir' });
-	}
+	// if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
+	// 	return res.status(400).json({ Msg: 'No hay archivos que subir' });
+	// }
 
 	const pathArchivo = await subirArchivo(req.files, undefined, coleccion);
 	modelo.img = pathArchivo;
