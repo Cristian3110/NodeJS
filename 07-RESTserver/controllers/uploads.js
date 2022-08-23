@@ -1,6 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
+// importando el paquete de cloudinary
+const cloudinary = require('cloudinary').v2;
+// extrayendo de la variable de entorno
+cloudinary.config(process.env.CLOUDINARY_URL);
+
 const { response, json } = require('express');
 const { subirArchivo } = require('../helpers');
 
@@ -80,6 +85,57 @@ const actualizarImg = async (req, res = response) => {
 	res.json(modelo);
 };
 
+//Actualizar imagen con Cloudinary
+const actualizarImgCloudinary = async (req, res = response) => {
+	const { id, coleccion } = req.params;
+
+	let modelo;
+
+	// Validando las colecciones
+
+	switch (coleccion) {
+		case 'usuarios':
+			modelo = await Usuario.findById(id);
+			if (!modelo) {
+				return res.status(400).json({
+					msg: `No existe un usuario con el id: ${id}`,
+				});
+			}
+			break;
+
+		case 'productos':
+			modelo = await Producto.findById(id);
+			if (!modelo) {
+				return res.status(400).json({
+					msg: `No existe un producto con el id: ${id}`,
+				});
+			}
+			break;
+		default:
+			return res.status(500).json({ msg: 'Se me olvidó validar esto' });
+	}
+
+	if (modelo.img) {
+		// TODO:
+	}
+
+	//? Para verificar de donde viene la imagen el path
+	// console.log(req.files.archivo);
+
+	const { tempFilePath } = req.files.archivo;
+	const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
+	modelo.img = secure_url;
+
+	// const pathArchivo = await subirArchivo(req.files, undefined, coleccion);
+	// modelo.img = pathArchivo;
+
+	//save DB
+	await modelo.save();
+
+	res.json(modelo);
+	// res.json(resp);
+};
+
 const mostrarImg = async (req, res = response) => {
 	const { id, coleccion } = req.params;
 
@@ -127,4 +183,5 @@ module.exports = {
 	cargarArchivo,
 	actualizarImg,
 	mostrarImg,
+	actualizarImgCloudinary,
 };

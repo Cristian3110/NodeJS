@@ -1,7 +1,12 @@
 // this Router comming from express
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { cargarArchivo, actualizarImg, mostrarImg } = require('../controllers/uploads');
+const {
+	cargarArchivo,
+	actualizarImg,
+	mostrarImg,
+	actualizarImgCloudinary,
+} = require('../controllers/uploads');
 const { coleccionesPermitidas } = require('../helpers');
 
 const { validarCampos, validarArchivo } = require('../middleware');
@@ -18,7 +23,8 @@ router.put(
 		validarArchivo,
 		validarCampos,
 	],
-	actualizarImg
+	actualizarImgCloudinary
+	// actualizarImg
 );
 
 router.get(
