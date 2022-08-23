@@ -12,6 +12,9 @@ class Server {
 	constructor() {
 		this.app = express();
 		this.port = port;
+		// from socket.io
+		this.server = require('http').createServer(this.app);
+		this.io = require('socket.io')(this.server);
 
 		this.path = {};
 		// this.usuariosPath = '/api/usuarios';
@@ -36,7 +39,8 @@ class Server {
 	}
 
 	listen() {
-		this.app.listen(port, () => {
+		// se inicializa con el server ya q estamos utilizando sockets ver referencia up
+		this.server.listen(port, () => {
 			console.log('Servidor corriendo en el puerto:', port);
 		});
 	}
