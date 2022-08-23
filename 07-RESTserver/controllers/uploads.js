@@ -116,7 +116,13 @@ const actualizarImgCloudinary = async (req, res = response) => {
 	}
 
 	if (modelo.img) {
-		// TODO:
+		const nombreArr = modelo.img.split('/');
+		console.log(nombreArr);
+		const nombre = nombreArr[nombreArr.length - 1];
+		console.log(nombre);
+		const [public_id] = nombre.split('.');
+		console.log(public_id);
+		cloudinary.uploader.destroy(public_id);
 	}
 
 	//? Para verificar de donde viene la imagen el path
@@ -172,6 +178,9 @@ const mostrarImg = async (req, res = response) => {
 		if (fs.existsSync(pathImagen)) {
 			return res.sendFile(pathImagen);
 		}
+		//construyendo para que nos devuelva el path desde cloudinary
+
+		return res.send(modelo.img);
 	}
 	// Aqui mandamos una img por defecto si el producto o usuario no tiene img
 
