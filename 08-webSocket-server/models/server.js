@@ -54,7 +54,8 @@ class Server {
 			//Recuerden que el payload es lo q está en el request del front
 			socket.on('enviar-msj', (payload) => {
 				// console.log('Enviando msj desde el server');
-				console.log(payload);
+				// console.log(payload);
+				this.io.emit('enviar-msj', payload);
 			});
 		});
 	}
