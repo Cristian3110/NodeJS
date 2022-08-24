@@ -49,6 +49,13 @@ class Server {
 			socket.on('disconnect', () => {
 				console.log('Cliente Desconectado', socket.id);
 			});
+
+			//recibiendo evento desde el front para acá
+			//Recuerden que el payload es lo q está en el request del front
+			socket.on('enviar-msj', (payload) => {
+				// console.log('Enviando msj desde el server');
+				console.log(payload);
+			});
 		});
 	}
 

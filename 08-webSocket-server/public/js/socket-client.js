@@ -7,6 +7,9 @@ console.log('Hello world with websockets');
 const msgOnline = document.querySelector('#msgOnline');
 const msgOffline = document.querySelector('#msgOffline');
 
+const txtMensaje = document.querySelector('#txtMensaje');
+const btnEnviar = document.querySelector('#btnEnviar');
+
 // configuración de conección del frontEnd
 const socket = io();
 
@@ -21,4 +24,16 @@ socket.on('disconnect', () => {
 	console.log('Server Disconnect');
 	msgOnline.style.display = 'none';
 	msgOffline.style.display = '';
+});
+
+btnEnviar.addEventListener('click', () => {
+	const mensaje = txtMensaje.value;
+	const payload = {
+		msg: mensaje,
+		id: 'AXjste5874gTTmcs',
+		fecha: new Date().getTime(),
+	};
+	console.log(mensaje);
+	//enviando msj al server
+	socket.emit('enviar-msj', payload);
 });
