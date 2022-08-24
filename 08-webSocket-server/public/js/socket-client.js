@@ -3,3 +3,6 @@
  */
 
 console.log('Hello world with websockets');
+
+// configuración de conección del frontEnd
+const socket = io();
