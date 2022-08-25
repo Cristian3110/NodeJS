@@ -2,9 +2,10 @@
  * Declarando nuestro servidor a traves de Clases
  ***********************************************/
 
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const { socketController } = require('../sockets/controller');
 
 const port = process.env.PORT;
 
@@ -43,24 +44,7 @@ class Server {
 
 	// configuración de socket.io
 	sockets() {
-		this.io.on('connection', (socket) => {
-			console.log('Cliente Conectado', socket.id);
-
-			socket.on('disconnect', () => {
-				// console.log('Cliente Desconectado', socket.id);
-			});
-
-			//recibiendo evento desde el front para acá
-			//Recuerden que el payload es lo q está en el request del front
-			socket.on('enviar-msj', (payload, callback) => {
-				// console.log('Enviando msj desde el server');
-				// console.log(payload);
-				// this.io.emit('enviar-msj', payload);
-				const id = 123456789;
-				callback({ id, fecha: new Date().getTime() });
-				// this.io.emit('enviar-msj', payload);
-			});
-		});
+		this.io.on('connection', socketController);
 	}
 
 	listen() {
