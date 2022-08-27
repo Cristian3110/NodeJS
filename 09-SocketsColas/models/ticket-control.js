@@ -53,14 +53,14 @@ class TicketControl {
 		fs.writeFileSync(dbPath, JSON.stringify(this.toJson));
 	}
 
-	siguienteTicket() {
+	siguiente() {
 		this.ultimo += 1;
 		const ticket = new Ticket(this.ultimo, null);
 		this.tickets.push(ticket);
 
 		this.guardarDB();
 
-		return 'Ticket -> ' + ticket.numero;
+		return 'Ticket:' + ticket.numero;
 	}
 
 	atenderTicket(escritorio) {
@@ -69,10 +69,11 @@ class TicketControl {
 			return null;
 		}
 
-		// se atiendo el 1er ticket
-		const ticket = this.tickets[0];
+		// se atiende el 1er ticket
+		// const ticket = this.tickets[0];
+		const ticket = this.tickets.shift();
 		//después de atender, borramos el ticket
-		this.tickets.shift();
+		// this.tickets.shift();
 		this.escritorio = escritorio;
 
 		//añadiendo al inicio el ticket
