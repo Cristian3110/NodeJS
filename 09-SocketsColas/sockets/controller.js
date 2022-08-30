@@ -36,6 +36,7 @@ const socketController = (socket) => {
 		const ticket = ticketControl.atenderTicket(escritorio);
 
 		//todo: Notificar cambios en los últimos 4 tickets
+		socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
 
 		if (!ticket) {
 			return callback({

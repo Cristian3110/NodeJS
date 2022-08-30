@@ -1,11 +1,1 @@
-{
-	"ultimo": 20,
-	"hoy": 29,
-	"tickets": [],
-	"ultimos4": [
-		{ "numero": 20, "escritorio": null },
-		{ "numero": 19, "escritorio": null },
-		{ "numero": 18, "escritorio": null },
-		{ "numero": 17, "escritorio": null }
-	]
-}
+{"ultimo":39,"hoy":29,"tickets":[{"numero":35,"escritorio":null},{"numero":36,"escritorio":null},{"numero":37,"escritorio":null},{"numero":38,"escritorio":null},{"numero":39,"escritorio":null}],"ultimos4":[{"numero":34,"escritorio":null},{"numero":33,"escritorio":null},{"numero":32,"escritorio":null},{"numero":31,"escritorio":null}]}
