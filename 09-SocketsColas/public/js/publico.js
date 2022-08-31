@@ -13,7 +13,8 @@ const lblEscritorio4 = document.querySelector('#lblEscritorio4');
 const socket = io();
 
 socket.on('estado-actual', (payload) => {
-	console.log(payload);
+	// console.log(payload);
+	//Destructuración de arreglo
 	const [ticket1, ticket2, ticket3, ticket4] = payload;
 
 	if (ticket1) {
@@ -22,15 +23,15 @@ socket.on('estado-actual', (payload) => {
 	}
 	if (ticket2) {
 		lblTicket2.innerText = `Ticket: ${ticket2.numero}`;
-		lblEscritorio1.innerText = ticket2.escritorio;
+		lblEscritorio2.innerText = ticket2.escritorio;
 	}
 
 	if (ticket3) {
 		lblTicket3.innerText = `Ticket: ${ticket3.numero}`;
-		lblEscritorio1.innerText = ticket3.escritorio;
+		lblEscritorio3.innerText = ticket3.escritorio;
 	}
 	if (ticket4) {
 		lblTicket4.innerText = `Ticket: ${ticket4.numero}`;
-		lblEscritorio1.innerText = ticket4.escritorio;
+		lblEscritorio4.innerText = ticket4.escritorio;
 	}
 });

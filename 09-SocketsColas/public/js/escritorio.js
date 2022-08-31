@@ -21,7 +21,7 @@ lblEscritorio.innerText = escritorio;
 
 divAlerta.style.display = 'none';
 
-console.log({ escritorio });
+// console.log({ escritorio });
 
 const socket = io();
 
@@ -47,8 +47,8 @@ btnAtender.addEventListener('click', () => {
 
 		lblTicket.innerText = `Ticket: ${ticket.numero}`;
 	});
-	// socket.emit('siguiente-ticket', null, (ticket) => {
-	// 	console.log('Desde el server', ticket);
-	// 	lblNuevoTicket.innerText = ticket;
-	// });
 });
+// socket.emit('siguiente-ticket', null, (ticket) => {
+// 	console.log('Desde el server', ticket);
+// 	lblNuevoTicket.innerText = ticket;
+// });

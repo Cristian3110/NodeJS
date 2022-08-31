@@ -74,7 +74,7 @@ class TicketControl {
 		const ticket = this.tickets.shift();
 		//después de atender, borramos el ticket
 		// this.tickets.shift();
-		this.escritorio = escritorio;
+		ticket.escritorio = escritorio;
 
 		//añadiendo al inicio el ticket
 		this.ultimos4.unshift(ticket);
@@ -82,7 +82,7 @@ class TicketControl {
 		if (this.ultimos4.length > 4) {
 			this.ultimos4.splice(-1, 1);
 		}
-		console.log(this.ultimos4);
+		// console.log(this.ultimos4, escritorio);
 
 		this.guardarDB();
 		return ticket;

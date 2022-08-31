@@ -24,8 +24,6 @@ const socketController = (socket) => {
 	});
 
 	socket.on('atender-ticket', ({ escritorio }, callback) => {
-		// console.log(payload);
-
 		if (!escritorio) {
 			return callback({
 				ok: false,
@@ -35,16 +33,16 @@ const socketController = (socket) => {
 
 		const ticket = ticketControl.atenderTicket(escritorio);
 
-		//todo: Notificar cambios en los últimos 4 tickets
+		//TODO: notificar cambio en los ultimos 4
 		socket.broadcast.emit('estado-actual', ticketControl.ultimos4);
 
 		if (!ticket) {
 			return callback({
 				ok: false,
-				msg: 'No hay ticket pendiente',
+				msg: 'Ya no hay tickets pendientes',
 			});
 		} else {
-			callback({
+			return callback({
 				ok: true,
 				ticket,
 			});
