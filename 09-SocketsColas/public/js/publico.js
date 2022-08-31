@@ -13,6 +13,9 @@ const lblEscritorio4 = document.querySelector('#lblEscritorio4');
 const socket = io();
 
 socket.on('estado-actual', (payload) => {
+	const audio = new Audio('./audio/new-ticket.mp3');
+	audio.play();
+
 	// console.log(payload);
 	//Destructuración de arreglo
 	const [ticket1, ticket2, ticket3, ticket4] = payload;
