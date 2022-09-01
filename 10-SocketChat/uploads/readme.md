@@ -1,2 +1,3 @@
 # Nota
-Aquí van a guardarse todas las imagenes
+
+Aquí se van a subir todas las imágenes o archivos

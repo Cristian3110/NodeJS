@@ -1,80 +1,80 @@
+/**************************************************
+ * Declarando nuestro servidor a traves de Clases
+ ***********************************************/
+
 const express = require('express');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 
 const { dbConnection } = require('../database/config');
 
+const port = process.env.PORT;
+
 class Server {
+	constructor() {
+		this.app = express();
+		this.port = port;
 
-    constructor() {
-        this.app  = express();
-        this.port = process.env.PORT;
+		this.path = {
+			auth: '/api/auth',
+			buscar: '/api/buscar',
+			categorias: '/api/categorias',
+			productos: '/api/productos',
+			uploads: '/api/uploads',
+			usuario: '/api/usuarios',
+		};
+		// this.usuariosPath = '/api/usuarios';
+		// this.authPath = '/api/auth';
+		// this.categoriasPath = '/api/categorias';
 
-        this.paths = {
-            auth:       '/api/auth',
-            buscar:     '/api/buscar',
-            categorias: '/api/categorias',
-            productos:  '/api/productos',
-            usuarios:   '/api/usuarios',
-            uploads:    '/api/uploads',
-        }
+		//Conectar a Base de Datos
+		this.conectarDB();
 
+		// Middlewares
+		this.middlewares();
 
-        // Conectar a base de datos
-        this.conectarDB();
+		//Rutas de mi aplicacion
+		this.routes();
+	}
 
-        // Middlewares
-        this.middlewares();
+	async conectarDB() {
+		await dbConnection();
+	}
 
-        // Rutas de mi aplicación
-        this.routes();
-    }
+	middlewares() {
+		// CORS configuration
+		this.app.use(cors());
 
-    async conectarDB() {
-        await dbConnection();
-    }
+		//Lectura y parseo del body
+		this.app.use(express.json());
 
+		//Directorio público (Recordar que es el primero que toma por defecto ya q tiene el index.html)
+		this.app.use(express.static('public'));
 
-    middlewares() {
+		//Fileupload - Carga de ARchivos
+		this.app.use(
+			fileUpload({
+				useTempFiles: true,
+				tempFileDir: '/tmp/',
+				createParentPath: true,
+			})
+		);
+	}
 
-        // CORS
-        this.app.use( cors() );
+	routes() {
+		this.app.use(this.path.auth, require('../routes/auth'));
+		this.app.use(this.path.buscar, require('../routes/buscar'));
+		this.app.use(this.path.categorias, require('../routes/categorias'));
+		this.app.use(this.path.productos, require('../routes/productos'));
+		this.app.use(this.path.uploads, require('../routes/uploads'));
+		this.app.use(this.path.usuario, require('../routes/user'));
+	}
 
-        // Lectura y parseo del body
-        this.app.use( express.json() );
-
-        // Directorio Público
-        this.app.use( express.static('public') );
-
-        // Fileupload - Carga de archivos
-        this.app.use( fileUpload({
-            useTempFiles : true,
-            tempFileDir : '/tmp/',
-            createParentPath: true
-        }));
-
-    }
-
-    routes() {
-        
-        this.app.use( this.paths.auth, require('../routes/auth'));
-        this.app.use( this.paths.buscar, require('../routes/buscar'));
-        this.app.use( this.paths.categorias, require('../routes/categorias'));
-        this.app.use( this.paths.productos, require('../routes/productos'));
-        this.app.use( this.paths.usuarios, require('../routes/usuarios'));
-        this.app.use( this.paths.uploads, require('../routes/uploads'));
-        
-    }
-
-    listen() {
-        this.app.listen( this.port, () => {
-            console.log('Servidor corriendo en puerto', this.port );
-        });
-    }
-
+	listen() {
+		this.app.listen(port, () => {
+			console.log('Servidor corriendo en el puerto:', port);
+		});
+	}
 }
-
-
-
 
 module.exports = Server;

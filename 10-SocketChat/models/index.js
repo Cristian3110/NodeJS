@@ -1,18 +1,15 @@
+//Optimizando las importanciones de los modelos
 
-
-const Categoria = require('./categoria');
+const Categoria = require('./categorias');
 const Producto = require('./producto');
-const Role = require('./role');
 const Server = require('./server');
+const Role = require('./role');
 const Usuario = require('./usuario');
 
-
-
 module.exports = {
-    Categoria,
-    Producto,
-    Role,
-    Server,
-    Usuario,
-}
-
+	Categoria,
+	Producto,
+	Server,
+	Role,
+	Usuario,
+};
