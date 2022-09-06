@@ -4,50 +4,48 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+			crossorigin="anonymous"
+		></script>
+
+		<title>Login</title>
 	</head>
-	<body>
-		<h1>Google SignIn</h1>
-		<hr />
-		<div id="buttonDiv"></div>
-		<hr />
+	<body class="container">
+		<div class="row mt-5">
+			<div class="col-sm-6">
+				<h1>Google SignIn</h1>
+				<hr />
+				<div id="buttonDiv"></div>
+				<hr />
+				<br />
+				<div class="col-sm-6">
+					<h1>Login Manual</h1>
+					<hr />
+
+					<form class="d-grid">
+						<input type="text" name="correo" class="form-control mb-2" placeholder="correo" />
+						<input
+							type="password"
+							name="password"
+							class="form-control mb-2"
+							placeholder="password"
+						/>
+						<button type="submit" class="btn btn-primary">Ingresar</button>
+					</form>
+				</div>
+			</div>
+		</div>
 
 		<script src="https://accounts.google.com/gsi/client" async defer></script>
 
-		<script>
-			// especificando que estamos en Desarrollo, devuelve true
-			console.log(window.location.hostname.includes('localhost'));
-			// ternary operator
-			var url = window.location.hostname.includes('localhost')
-				? 'http://localhost:8080/api/auth/google'
-				: 'https://restserver-production.up.railway.app/api/auth/google';
-
-			function handleCredentialResponse(response) {
-				console.log('Encoded JWT ID token: ' + response.credential);
-				// console.log(response);
-
-				let id_token = response.credential;
-				const data = { id_token };
-				fetch(url, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(data),
-				})
-					.then((resp) => resp.json())
-					.then((data) => console.log('My server', data))
-					.catch((err) => console.log(err));
-			}
-			window.onload = function () {
-				google.accounts.id.initialize({
-					client_id:
-						'1020712000852-gaucre2skm4g6mvig2rme3p7co6f0k45.apps.googleusercontent.com',
-					callback: handleCredentialResponse,
-				});
-				google.accounts.id.renderButton(
-					document.getElementById('buttonDiv'),
-					{ theme: 'outline', size: 'large' } // customization attributes
-				);
-				google.accounts.id.prompt(); // also display the One Tap dialog
-			};
-		</script>
+		<script src="./js/auth.js"></script>
 	</body>
 </html>
