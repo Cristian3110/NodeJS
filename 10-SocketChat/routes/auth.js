@@ -2,8 +2,8 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { login, googleSignIn } = require('../controllers/auth');
-const { validarCampos } = require('../middleware/validar-campos');
+const { login, googleSignIn, renovarToken } = require('../controllers/auth');
+const { validarCampos, validarJWT } = require('../middleware/');
 
 const router = Router();
 
@@ -16,6 +16,8 @@ router.post(
 	],
 	login
 );
+
+router.get('/', validarJWT, renovarToken);
 
 // route from googleSigIn API idToken
 router.post(
