@@ -54,8 +54,8 @@ const conectarSocket = async () => {
 		//TODO:
 	});
 
-	socketServer.on('usuarios-activos', () => {
-		//TODO:
+	socketServer.on('usuarios-activos', (payload) => {
+		console.log(payload);
 	});
 	socketServer.on('msj-privado', () => {
 		//TODO:

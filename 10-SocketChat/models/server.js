@@ -78,8 +78,14 @@ class Server {
 		this.app.use(this.path.usuario, require('../routes/user'));
 	}
 
+	//?como estaba
+	// sockets() {
+	// 	this.io.on('connection', socketController);
+	// }
+
+	//Para mandar referencia de los conectados a todos, incluyendo el mismo conectado
 	sockets() {
-		this.io.on('connection', socketController);
+		this.io.on('connection', (socket) => socketController(socket, this.io));
 	}
 
 	listen() {
