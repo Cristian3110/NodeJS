@@ -54,12 +54,27 @@ const conectarSocket = async () => {
 		//TODO:
 	});
 
-	socketServer.on('usuarios-activos', (payload) => {
-		console.log(payload);
-	});
+	socketServer.on('usuarios-activos', dibujarUsuarios);
+
 	socketServer.on('msj-privado', () => {
 		//TODO:
 	});
+};
+
+//Mostrando los usuarios en el UI
+const dibujarUsuarios = (usuarios = []) => {
+	let usersHtml = '';
+	usuarios.forEach(({ nombre, uid }) => {
+		usersHtml += `
+		<li>
+			<p>
+				<h5 class="text-success">${nombre}</h5>
+				<span class="fs-6 text-muted">${uid}</span>
+			</p>
+		</li>`;
+	});
+
+	ulUsuarios.innerHTML = usersHtml;
 };
 
 const main = async () => {
