@@ -50,9 +50,12 @@ const conectarSocket = async () => {
 		console.log('Sockets Offline');
 	});
 
-	socket.on('recibir-msj', (payload) => {
-		console.log(payload);
-	});
+	// socket.on('recibir-msj', (payload) => {
+	// 	// console.log(payload);
+	// 	dibujarMensajes(payload);
+	// });
+
+	socket.on('recibir-msj', dibujarMensajes);
 
 	socket.on('usuarios-activos', dibujarUsuarios);
 
@@ -75,6 +78,22 @@ const dibujarUsuarios = (usuarios = []) => {
 	});
 
 	ulUsuarios.innerHTML = usersHtml;
+};
+
+//Mostrando los mensajes en el UI
+const dibujarMensajes = (mensajes = []) => {
+	let mensajesHtml = '';
+	mensajes.forEach(({ nombre, mensaje }) => {
+		mensajesHtml += `
+		<li>
+			<p>
+				<span class="text-primary">${nombre}</span>
+				<span class="fs-6 text-muted">${mensaje}</span>
+			</p>
+		</li>`;
+	});
+
+	ulMensajes.innerHTML = mensajesHtml;
 };
 
 // extrayendo el keyup del evento, en este caso el Keyup

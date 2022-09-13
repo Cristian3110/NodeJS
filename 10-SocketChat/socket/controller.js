@@ -25,6 +25,7 @@ const socketController = async (socket, io) => {
 	// Agregar el usuario conectado
 	chatMensajes.conectarUsuario(usuario);
 	io.emit('usuarios-activos', chatMensajes.usuariosArr);
+	socket.emit('recibir-msj', chatMensajes.ultimos10);
 	// socket.emit('recibir-mensajes', chatMensajes.ultimos10);
 	// console.log('Se conectó:', usuario.nombre);
 
