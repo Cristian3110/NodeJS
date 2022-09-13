@@ -36,27 +36,27 @@ const validarJWT = async () => {
 };
 
 const conectarSocket = async () => {
-	const socketServer = io({
+	socket = io({
 		extraHeaders: {
 			'x-token': localStorage.getItem('token'),
 		},
 	});
 
-	socketServer.on('connect', () => {
+	socket.on('connect', () => {
 		console.log('Sockets Online');
 	});
 
-	socketServer.on('disconnect', () => {
+	socket.on('disconnect', () => {
 		console.log('Sockets Offline');
 	});
 
-	socketServer.on('recibir-msj', () => {
-		//TODO:
+	socket.on('recibir-msj', (payload) => {
+		console.log(payload);
 	});
 
-	socketServer.on('usuarios-activos', dibujarUsuarios);
+	socket.on('usuarios-activos', dibujarUsuarios);
 
-	socketServer.on('msj-privado', () => {
+	socket.on('msj-privado', () => {
 		//TODO:
 	});
 };
@@ -77,7 +77,28 @@ const dibujarUsuarios = (usuarios = []) => {
 	ulUsuarios.innerHTML = usersHtml;
 };
 
+// extrayendo el keyup del evento, en este caso el Keyup
+//txtMensaje.addEventListener('keyup', (ev) => {
+txtMensaje.addEventListener('keyup', ({ keyCode }) => {
+	// console.log(ev);
+
+	const mensaje = txtMensaje.value;
+	const uid = txtUid.value;
+
+	if (keyCode !== 13) {
+		return;
+	}
+	if (mensaje.length === 0) {
+		return;
+	}
+
+	socket.emit('enviar-mensaje', { mensaje, uid });
+
+	txtMensaje.value = '';
+});
+
 const main = async () => {
+	//validando el JWT
 	await validarJWT();
 };
 
